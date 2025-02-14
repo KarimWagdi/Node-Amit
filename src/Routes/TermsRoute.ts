@@ -1,8 +1,10 @@
 import { Router } from 'express'
 import TermsController from '../Controller/TermsController';
+import verifyToken from '../MiddelWares/Auth';
 const router = Router()
 
-router.get('/', TermsController.getTerm);
+router.get('/', verifyToken, TermsController.getTerm);
+
 router.get('/:id', TermsController.getTermById);
 
 router.post('/', TermsController.createTerm);
@@ -11,10 +13,5 @@ router.put('/:id', TermsController.updateTerm);
 
 router.delete("/:id", TermsController.deleteTerm);
   
-
-// router.post('/login', TermsController.loginUser);
-
-
-// router.delete('/:id', TermsController.deleteUser);
 
 export default router

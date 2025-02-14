@@ -15,6 +15,10 @@ class TermsController {
 
   static getTerm   = async(request:any, response:Response):Promise<any> => {
     try{
+      console.log(request.user);
+      if(request.user.role !== 'admin'){
+        response.status(401).json({ message: 'only admin can get terms' });
+      }
        const termsRepository = AppDataSource.getRepository("terms");
        const term = await termsRepository.find();
        response.json(term);

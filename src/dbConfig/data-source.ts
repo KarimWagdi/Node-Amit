@@ -4,6 +4,8 @@ import { User } from "../entity/User";
 import { Product } from "../entity/Product";
 import { Wallet } from "../entity/Wallet";
 import * as dotenv from "dotenv";
+import { Terms } from "../entity/Terms";
+import { Categories } from "../entity/Categories";
 
 dotenv.config();
 
@@ -16,7 +18,7 @@ export const AppDataSource = new DataSource({
   database: "market",
   synchronize: true,
   logging: true,
-  entities: [User, Product, Wallet],
+  entities: [User, Product, Wallet, Terms, Categories],
   migrations: [],
   subscribers: [],
 });

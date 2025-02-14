@@ -2,9 +2,9 @@ import { NextFunction, Response } from 'express'
 import { AppDataSource } from '../dbConfig/data-source'
 const jwt = require('jsonwebtoken')
 
-const jwtSecret = 'your-jwt-secret'
+const jwtSecret = 'your-secret-key'
 
-const verifyToken = async (req: any, res: Response, next: NextFunction) => {
+const verifyToken = async (req: any, res: Response, next: NextFunction):Promise <any> => {
     try{
             if (req.headers && req.headers.authorization) {
                 const authorization = req.headers.authorization.split(' ')[1]
