@@ -1,11 +1,18 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToMany,
+  OneToOne,
+} from "typeorm";
 import { Product } from "./Product";
+import { Wallet } from "./Wallet";
 
 export enum UserRole {
-    ADMIN = "admin",
-    USER = "user",
-    MODERATOR = "moderator",
-  }
+  ADMIN = "admin",
+  USER = "user",
+  MODERATOR = "moderator",
+}
 
 @Entity()
 export class User {
@@ -22,7 +29,7 @@ export class User {
   password!: string;
 
   @Column()
-  gender!:string;
+  gender!: string;
 
   @Column({ type: "date", nullable: true })
   birthdate!: Date;
@@ -37,9 +44,12 @@ export class User {
   @OneToMany(() => Product, (product) => product.user_id)
   product: Product[];
 
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  @OneToOne(() => Wallet, (wallet) => wallet.user_id)
+  wallet: Wallet;
+
+  @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
   createdAt: Date;
-  
-  @Column({ type: 'timestamp', nullable: true })
+
+  @Column({ type: "timestamp", nullable: true })
   updatedAt: Date;
 }
