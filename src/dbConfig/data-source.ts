@@ -27,5 +27,5 @@ AppDataSource.initialize()
     console.log("Data Source has been initialized!");
   })
   .catch((err: Error) => {
-    console.error("Error during Data Source initialization");
+    console.error("Error during Data Source initialization" + err);
   });

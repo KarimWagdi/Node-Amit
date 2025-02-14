@@ -1,5 +1,6 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { User } from "./User";
+// import { Category } from "./Category";
 
 @Entity()
 export class Product {
@@ -9,6 +10,9 @@ export class Product {
     @ManyToOne(() => User, user => user.id)
     @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
     user_id: number;
+    
+    @Column({ type: 'int', default: 1})
+    cat_id: number;
 
     @Column({ type: 'varchar', length: 100 })
     name: string;
@@ -22,7 +26,7 @@ export class Product {
     @Column({ type: 'int', default: 0 })
     quantity: number;
 
-    @Column({ type: 'varchar', length: 255 })
+    @Column({ type: 'varchar', length: 255, nullable: true })
     image: string;
     
     @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
