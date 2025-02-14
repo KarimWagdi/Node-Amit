@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+import { Product } from "./Product";
 
 export enum UserRole {
     ADMIN = "admin",
@@ -32,6 +33,9 @@ export class User {
     default: UserRole.USER,
   })
   role!: UserRole;
+
+  @OneToMany(() => Product, (product) => product.user_id)
+  product: Product[];
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
