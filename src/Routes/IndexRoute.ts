@@ -1,17 +1,10 @@
 import { Router } from 'express'
 import UserRoute from './UserRoute'
-import CategoriesRoute from './CategoriesRoute'
-
-import Terms from './TermsRoute'
-
+import ProductRoute from './ProductRoute'
 const router = Router()
 
 // routes
 
 router.use('/users', UserRoute)
-
-router.use('/categories', CategoriesRoute)
-
-router.use('/terms', Terms)
-
+router.use('/products', ProductRoute)
 export default router
