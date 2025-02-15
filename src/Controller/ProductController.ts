@@ -1,5 +1,6 @@
 import { Response } from "express";
 import { AppDataSource } from "../dbConfig/data-source";
+import { UserRole } from "../entity/User";
 
 class ProductController {
 
@@ -9,6 +10,7 @@ class ProductController {
         const products = await productRepository.find();
         response.json(products);
         } catch(error){
+            console.log(error);
             response.status(500).json({ message: error });
         }
     };
@@ -36,10 +38,18 @@ class ProductController {
     static updateProduct =  async ( request: any, response: Response ): Promise<void> => {
         try{
         const productRepository = AppDataSource.getRepository("product");
-        const product = await productRepository.findOneBy({id: request.params.id})
-        if (!product) 
+        const product = await productRepository.findOne({where:{id: request.params.id}, relations:['user_id']})
+        
+        console.log(product?.user_id.id, request.user.id);
+        if (!product) {
             response.status(404).json("product doesnt exist");
-        const updatedProduct = await productRepository.save({...product, ...request.body});
+        }
+        // console.log(request.user);
+        if( product?.user_id.id !== request.user.id && request.user.role !== UserRole.ADMIN ) {
+            response.status(403).json("Unauthorized access");
+            return;
+        }
+        const updatedProduct = await productRepository.update({id:request.params.id}, request.body);
         response.json(updatedProduct);
         } catch(error){
             response.status(500).json({ message: error });
