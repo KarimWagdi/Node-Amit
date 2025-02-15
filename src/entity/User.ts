@@ -28,11 +28,11 @@ export class User {
   @Column()
   password!: string;
 
-  @Column()
-  gender!: string;
+  @Column({nullable: true})
+  gender: string;
 
   @Column({ type: "date", nullable: true })
-  birthdate!: Date;
+  birthdate: Date;
 
   @Column({
     type: "enum",
