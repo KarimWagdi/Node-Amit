@@ -1,13 +1,15 @@
 import { Router } from 'express'
-import UserController from '../Controller/UserController'
 import CategoriesController from '../Controller/CategoriesController';
-const router = Router()
+import requestValidate from '../MiddelWares/RequestValidate';
+import { CategoryRequest } from '../Request/category Request';
 
+const router = Router()
 router.get('/', CategoriesController.getCategories);
 
-router.post('/', CategoriesController.addCategory);
-router.put('/:id', CategoriesController.updateCategory);
+router.post('/', requestValidate(CategoryRequest), CategoriesController.addCategory);
+router.put('/:id', requestValidate(CategoryRequest), CategoriesController.updateCategory);
 
 router.delete('/:id', CategoriesController.deleteCategory);
 
-export default router
+export default router;
+
