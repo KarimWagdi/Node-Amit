@@ -7,6 +7,7 @@ import {
 } from "typeorm";
 import { Product } from "./Product";
 import { Wallet } from "./Wallet";
+import { Rate } from "./Rate";
 
 export enum UserRole {
   ADMIN = "admin",
@@ -46,6 +47,9 @@ export class User {
 
   @OneToOne(() => Wallet, (wallet) => wallet.user_id)
   wallet: Wallet;
+
+  @OneToMany(() => Rate, (rate) => rate.user)
+  ratings: Rate[];
 
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
   createdAt: Date;
