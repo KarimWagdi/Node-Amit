@@ -4,8 +4,6 @@ import { AppDataSource } from "../dbConfig/data-source";
 import { User } from "../entity/User";
 const jwt = require('jsonwebtoken');
 
-const jwtSecret = 'your-secret-key';
-
 class UserController {
 
     static getUser =  async ( request: any, response: Response ): Promise<void> => {
@@ -24,7 +22,7 @@ class UserController {
             const hashedPassword = await bcrypt.hash(request.body.password, 10);
             request.body.password = hashedPassword;
             const savedUser = await userRepository.save(request.body);
-            const token = jwt.sign({ userId: savedUser.id }, jwtSecret, { expiresIn: '1h' });
+            const token = jwt.sign({ userId: savedUser.id }, process.env.jwtSecret, { expiresIn: '1h' });
             // await userRepository.update(savedUser.id, {token: token});
             response.send({accessToken: token, user: savedUser});
         } catch(error){
@@ -64,7 +62,7 @@ class UserController {
             if(!isValid){
                 return response.status(401).json({ message: "Invalid password." });
             }
-            const token = jwt.sign({ userId: user.id }, jwtSecret, { expiresIn: '1h' });
+            const token = jwt.sign({ userId: user.id }, process.env.jwtSecret, { expiresIn: '1h' });
             response.json({ token: token, message: "Logged in successfully."});
         } catch(error){
             response.status(500).json({ message: error});
