@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "types":["node"],
     "target": "ES6",
     "module": "CommonJS",
     "outDir": "./dist",
@@ -9,6 +10,7 @@
     "skipLibCheck": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "strictPropertyInitialization": false
+    "strictPropertyInitialization": false,
+    "forceConsistentCasingInFileNames": true
   }
 }
