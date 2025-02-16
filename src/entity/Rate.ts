@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from "typeorm";
 import { Product } from "./Product";
 import { User } from "./User";
 
@@ -14,10 +14,12 @@ export class Rate {
   comment: string;
 
   @ManyToOne(() => Product, (product) => product.rate)
-  product: Product;
+  @JoinColumn({ name: "product_id", referencedColumnName: "id" })
+  product_id: Product;
 
   @ManyToOne(() => User, (user) => user.ratings)
-  user: User;
+  @JoinColumn({ name: "user_id", referencedColumnName: "id" })
+  user_id: User;
 
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
   createdAt: Date;

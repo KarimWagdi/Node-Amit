@@ -48,7 +48,7 @@ export class User {
   @OneToOne(() => Wallet, (wallet) => wallet.user_id)
   wallet: Wallet;
 
-  @OneToMany(() => Rate, (rate) => rate.user)
+  @OneToMany(() => Rate, (rate) => rate.user_id)
   ratings: Rate[];
 
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })

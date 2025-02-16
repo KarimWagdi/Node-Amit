@@ -8,9 +8,16 @@ class ProductRateController {
   ): Promise<void> => {
     try {
       const rateRepository = AppDataSource.getRepository("rate");
-      const newRating = rateRepository.create(request.body);
-      const savedRating = await rateRepository.save(newRating);
-      response.status(201).json(savedRating);
+      const rateRequest = request.body;
+      const existingRating = await rateRepository.findOne();
+      if (!existingRating) {
+        // const newRating = rateRepository.create(rateRequest);
+        const savedRating = await rateRepository.save(rateRequest);
+        response.status(201).json(savedRating);
+      }else{
+        response.status(400).json({message: 'You have already rated this product'});
+      }
+
     } catch (error) {
       response.status(500).json({ message: error });
     }
