@@ -19,14 +19,19 @@ class UserController {
     static addUser =  async ( request: any, response: Response ): Promise<void> => {
         try{
             const userRepository = AppDataSource.getRepository("user");
+            const walletRepository = AppDataSource.getRepository("wallet");
+            const cartRepository = AppDataSource.getRepository("cart");
             const hashedPassword = await bcrypt.hash(request.body.password, 10);
             request.body.password = hashedPassword;
             const savedUser = await userRepository.save(request.body);
+            await walletRepository.save({ user_id: savedUser.id });
+            await cartRepository.save({ user_id: savedUser.id });
             const token = jwt.sign({ userId: savedUser.id }, process.env.jwtSecret, { expiresIn: '1h' });
             // await userRepository.update(savedUser.id, {token: token});
             response.send({accessToken: token, user: savedUser});
         } catch(error){
-            response.status(500).json({ message: error });
+            console.log(error);
+            response.status(500).json({ error });
         }
     };
 

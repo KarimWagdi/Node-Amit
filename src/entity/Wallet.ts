@@ -1,6 +1,7 @@
 import {
   Column,
   Decimal128,
+  DeleteDateColumn,
   Entity,
   JoinColumn,
   OneToOne,
@@ -15,7 +16,7 @@ export class Wallet {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({default: 0})
   balance: number;
 
   @OneToOne(() => User, (user) => user.id)
@@ -25,6 +26,9 @@ export class Wallet {
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
   createdAt: Date;
 
-  @UpdateDateColumn({ type: "timestamp", nullable: true })
+  @UpdateDateColumn({ type: 'timestamp', nullable: true })
   updatedAt: Date;
+  
+  @DeleteDateColumn({ type: 'timestamp' , nullable: true })
+  deletedAt: Date;
 }
