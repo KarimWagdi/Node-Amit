@@ -9,5 +9,6 @@ const app = express();
 app.use('/api', Routers)
 
 app.listen(process.env.APP_PORT, () => {
+  
   console.log(`Server is running at http://localhost:${process.env.APP_PORT}`);
 });
