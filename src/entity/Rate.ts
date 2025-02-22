@@ -1,13 +1,19 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  DeleteDateColumn,
+  UpdateDateColumn,
+} from "typeorm";
 import { Product } from "./Product";
-import { User } from "./User";
 
 @Entity()
 export class Rate {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column("decimal")
+  @Column("decimal", { precision: 5, scale: 2 })
   value: number;
 
   @Column()
@@ -15,4 +21,13 @@ export class Rate {
 
   @ManyToOne(() => Product, (product) => product.rate)
   product: Product;
+
+  @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
+  createdAt: Date;
+
+  @UpdateDateColumn({ type: "timestamp", nullable: true })
+  updatedAt: Date;
+
+  @DeleteDateColumn({ type: "timestamp", nullable: true })
+  deletedAt: Date;
 }
