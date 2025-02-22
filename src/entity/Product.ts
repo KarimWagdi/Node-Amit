@@ -1,11 +1,15 @@
 import {
   Column,
+  DeleteDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from "typeorm";
 import { User } from "./User";
+import { CartItems } from "./CartItems";
 // import { Category } from "./Category";
 
 @Entity()
@@ -41,6 +45,12 @@ export class Product {
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
   createdAt: Date;
 
-  @Column({ type: "timestamp", nullable: true })
+  @UpdateDateColumn({ type: 'timestamp', nullable: true })
   updatedAt: Date;
+  
+  @DeleteDateColumn({ type: 'timestamp' , nullable: true })
+  deletedAt: Date;
+
+  @OneToMany(() => CartItems, (cartItems) => cartItems.product_id)
+  cartItems: CartItems[];
 }

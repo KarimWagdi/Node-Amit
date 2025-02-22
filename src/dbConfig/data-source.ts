@@ -7,6 +7,8 @@ import * as dotenv from "dotenv";
 import { Terms } from "../entity/Terms";
 import { Categories } from "../entity/Categories";
 import { Rate } from "../entity/Rate";
+import { Cart } from "../entity/Cart";
+import { CartItems } from "../entity/CartItems";
 
 dotenv.config();
 
@@ -19,7 +21,7 @@ export const AppDataSource = new DataSource({
   database: process.env.DB_NAME,
   synchronize: true,
   logging: true,
-  entities: [User, Product, Wallet, Terms, Categories, Rate],
+  entities: [User, Product, Wallet, Terms, Categories, Rate, Cart, CartItems],
   migrations: [],
   subscribers: [],
 });

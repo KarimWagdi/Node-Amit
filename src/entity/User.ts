@@ -4,10 +4,11 @@ import {
   Column,
   OneToMany,
   OneToOne,
+  DeleteDateColumn,
+  UpdateDateColumn,
 } from "typeorm";
 import { Product } from "./Product";
 import { Wallet } from "./Wallet";
-import { Rate } from "./Rate";
 
 export enum UserRole {
   ADMIN = "admin",
@@ -48,12 +49,12 @@ export class User {
   @OneToOne(() => Wallet, (wallet) => wallet.user_id)
   wallet: Wallet;
 
-  @OneToMany(() => Rate, (rate) => rate.user_id)
-  ratings: Rate[];
-
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
   createdAt: Date;
 
-  @Column({ type: "timestamp", nullable: true })
+  @UpdateDateColumn({ type: 'timestamp', nullable: true })
   updatedAt: Date;
+  
+  @DeleteDateColumn({ type: 'timestamp' , nullable: true })
+  deletedAt: Date;
 }
