@@ -3,7 +3,7 @@ import { IsInt, IsNotEmpty, IsString, IsNumber, IsDecimal, IsOptional, Min, Max 
 export class AddProduct  {
     @IsInt()
     @IsNotEmpty()
-    cat_id: number
+    category_id: number
 
     @IsString()
     @IsNotEmpty()

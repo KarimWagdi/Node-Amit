@@ -6,9 +6,14 @@ class CartController {
 
     static getCart =  async ( request: any, response: Response ): Promise<void> => {
         try{
-        const CartRepository = AppDataSource.getRepository("cart");
-        const Cart = await CartRepository.find();
-        response.json(Cart);
+        const CartItemRepository = AppDataSource.getRepository("cart_items");
+        const Cart = await CartItemRepository.find({where:{cart_id:{id: request.params.id}}});
+        let total = 0
+        for(let item of Cart){
+            total += +item.total_item_price
+        }
+        response.json({total: total, cart: Cart});
+        return
         } catch(error){
             response.status(500).json({ message: error });
         }

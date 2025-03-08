@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import CategoriesController from '../Controller/CategoriesController';
 import requestValidate from '../MiddelWares/RequestValidate';
-import { CategoryRequest } from '../Request/category Request';
+import { CategoryRequest } from '../Requests/category Request';
 
 const router = Router()
 router.get('/', CategoriesController.getCategories);

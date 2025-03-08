@@ -5,7 +5,7 @@ export class CategoryRequest {
     @Length(1, 100)
     name: string;
 
-    @IsString()
-    @IsNotEmpty()
-    image: string;
+    // @IsString()
+    // @IsNotEmpty()
+    // image: string;
 }

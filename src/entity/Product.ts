@@ -10,7 +10,7 @@ import {
 } from "typeorm";
 import { User } from "./User";
 import { CartItems } from "./CartItems";
-// import { Category } from "./Category";
+import { Categories } from "./Categories";
 
 @Entity()
 export class Product {
@@ -21,8 +21,9 @@ export class Product {
   @JoinColumn({ name: "user_id", referencedColumnName: "id" })
   user_id: number;
 
-  @Column({ type: "int", default: 1 })
-  cat_id: number;
+  @ManyToOne(() => Categories, (category) => category.id)
+  @JoinColumn({ name: 'category_id', referencedColumnName: 'id' })
+  category_id: Categories;
 
   @Column({ type: "varchar", length: 100 })
   name: string;

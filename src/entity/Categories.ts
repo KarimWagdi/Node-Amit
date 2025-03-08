@@ -6,10 +6,10 @@ export class Categories {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ type: 'varchar', length: 100 })
+    @Column({ type: 'varchar', length: 100 , unique: true })
     name: string;
 
-    @Column({ type: 'varchar', length: 255 })
+    @Column({ type: 'varchar', length: 255 , nullable: true})
     image: string;
     
     @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
